@@ -258,7 +258,7 @@ process get_unistrap_trees{
   shell:
   '''
       tmp_name=`basename !{in_tree_file} | awk -F. '{print $1}'`
-      perl -I !{baseDir}/bin/ !{baseDir}/bin/CompareToBootstrap.pl -tree !{in_tree_file} -boot !{all_tree_file} > $tmp_name.unistrap.tree
+      perl -I !{bin} !{bin}/CompareToBootstrap.pl -tree !{in_tree_file} -boot !{all_tree_file} > $tmp_name.unistrap.tree
   '''
 } 
 
