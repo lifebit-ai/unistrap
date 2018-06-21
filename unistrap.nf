@@ -30,6 +30,8 @@
 params.in_dir="$baseDir/data/dataset"
 all_in_dir="${params.in_dir}/*"
 
+bin=file("${baseDir}/bin/")
+
 
 params.rep_num=100
 params.seed=10
@@ -337,7 +339,7 @@ process get_bootstrap_trees{
 
   input:
       set file(in_tree_file), file(all_tree_file) from all_norm_boot_rep_trees
-      
+      file bin
   output:
       file "*.bootstrap.tree" into bootstrap_trees
       file "${all_tree_file}"
