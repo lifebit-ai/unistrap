@@ -172,6 +172,7 @@ process get_shuffle_trees{
 
   input:
       set file(in_tree_file), file(all_tree_file) from msa_all_trees
+      file bin
       
   output:
       file("*.stable.tree") into stable_trees
@@ -181,7 +182,7 @@ process get_shuffle_trees{
   shell:
   '''
       tmp_name=`basename !{in_tree_file} | awk -F. '{print $1}'`
-      perl -I !{baseDir}/bin/ !{baseDir}/bin/CompareToBootstrap.pl -tree !{in_tree_file} -boot !{all_tree_file} > $tmp_name.stable.tree
+      perl -I !{bin} !{bin}/CompareToBootstrap.pl -tree !{in_tree_file} -boot !{all_tree_file} > $tmp_name.stable.tree
       cat  $tmp_name.stable.tree | sed 's/)/\\n/g' | sed 's/;//g' | awk -F: '{print $1}' | grep -v "(" | grep -v "^$" | awk '{ sum=sum+$1 ; } END { avg=-1; if( NR>0 ) avg=sum/NR; printf "%f\\n", avg; }' 
   '''
 }
@@ -250,7 +251,7 @@ process get_unistrap_trees{
 
   input:
       set prefix, file(all_tree_file), file(in_tree_file) from all_msa_boot_trees
-      
+      file bin
   output:
       file "*.unistrap.tree" into unistrap_trees
       file "${all_tree_file}"
@@ -347,7 +348,7 @@ process get_bootstrap_trees{
   shell:
   '''
       tmp_name=`basename !{in_tree_file} | awk -F. '{print $1}'`
-      perl -I !{baseDir}/bin/ !{baseDir}/bin/CompareToBootstrap.pl -tree !{in_tree_file} -boot !{all_tree_file} > $tmp_name.bootstrap.tree
+      perl -I !{bin} !{bin}/CompareToBootstrap.pl -tree !{in_tree_file} -boot !{all_tree_file} > $tmp_name.bootstrap.tree
   '''
 } 
 
