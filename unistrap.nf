@@ -30,7 +30,7 @@
 params.in_dir="$baseDir/data/dataset"
 all_in_dir="${params.in_dir}/*"
 
-bin=file("${baseDir}/bin/")
+params.bin=file("${baseDir}/bin/")
 
 
 params.rep_num=100
