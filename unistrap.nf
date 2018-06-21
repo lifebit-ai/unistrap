@@ -27,7 +27,10 @@
  * Paolo Di Tommaso <paolo.ditommaso@gmail.com>
  */
 
-params.in_dir="$baseDir/data/dataset/*"
+params.in_dir="$baseDir/data/dataset"
+all_in_dir="${params.in_dir}/*"
+
+
 params.rep_num=100
 params.seed=10
 params.aligner="clustalo"
@@ -38,7 +41,7 @@ params.boot_datasets="all"
 params.boot_num=100
 
 Channel
-	.fromPath(params.in_dir)
+	.fromPath(all_in_dir)
 	.ifEmpty { error "Cannot find any data -- Check the path specified: `${params.in_dir}`" }
     .set { file_names }
     
